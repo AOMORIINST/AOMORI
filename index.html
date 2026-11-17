@@ -12,14 +12,16 @@
     name="description"
     content="Shorts de Muay Thai diseñados, probados y confeccionados por un peleador. Explorá los modelos de AOMORI y consultá por pedidos personalizados."
   >
-  <meta property="og:type" content="website">
+   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_AR">
+  <meta property="og:site_name" content="AOMORI">
   <meta property="og:title" content="AOMORI | Shorts de Muay Thai">
   <meta
     property="og:description"
-    content="Del gimnasio al taller. Conocé nuestros shorts y pedí un diseño para tu equipo."
+    content="Del gimnasio al taller. Explorá la colección y consultá por el próximo short de tu equipo."
   >
 
+  <link rel="icon" type="image/png" href="img/favicon.png">
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
 </head>
@@ -33,6 +35,7 @@
 
       <nav aria-label="Navegación principal">
         <a href="#coleccion">Colección</a>
+        <a href="#marca">La marca</a>
         <a href="#equipos">Equipos</a>
         <a href="#contacto">Contacto</a>
       </nav>
@@ -40,7 +43,7 @@
   </header>
 
   <main id="contenido">
-    <!-- PORTADA -->
+    <!-- 1. PORTADA -->
     <section class="portada contenedor" aria-labelledby="titulo">
       <div class="portada-texto">
         <p class="etiqueta">AOMORI / MUAY THAI</p>
@@ -50,179 +53,330 @@
           <em>peleadores.</em>
         </h1>
 
-        <p class="introduccion">
-          Del gimnasio al taller. Diseño, pruebo y confecciono cada short
-          con la misma libertad de movimiento que busco cuando entreno.
+        <p class="bajada">
+          Shorts de Muay Thai diseñados, probados y confeccionados
+          por un peleador.
         </p>
 
-        <a class="boton claro" href="#coleccion">
-          Explorar la colección <span aria-hidden="true">↓</span>
-        </a>
+        <div class="acciones">
+          <a class="boton principal" href="#coleccion">
+            Explorar los shorts <span aria-hidden="true">↓</span>
+          </a>
+          <a class="link-texto" href="#marca">Conocer AOMORI</a>
+        </div>
       </div>
 
       <figure class="afiche">
         <img
-          src="BANNER.png"
+          src="img/BANNER.png"
           width="1080"
           height="1920"
           fetchpriority="high"
-          alt="Afiche de AOMORI con el short negro All Eyes on Me de Neme Team, letras blancas y lateral a cuadros."
+          alt="AOMORI Muay Thai. Short negro de Neme Team con la frase All Eyes on Me y laterales a cuadros."
         >
       </figure>
     </section>
 
-    <!-- PEDIDOS PERSONALIZADOS -->
-    <section id="equipos" class="equipos" aria-labelledby="titulo-equipos">
-      <div class="contenedor equipos-interior">
-        <div>
-          <p class="etiqueta">GIMNASIOS Y PROMOTORAS</p>
-          <h2 id="titulo-equipos">Los colores de tu esquina.</h2>
-          <p>
-            Confeccionamos shorts personalizados para equipos y eventos.
-            Contanos qué diseño tenés en mente, cuántos necesitás y para cuándo.
-          </p>
+    <!-- 2. COLECCIÓN -->
+    <section id="coleccion" class="coleccion seccion" aria-labelledby="titulo-coleccion">
+      <div class="contenedor">
+        <div class="encabezado-seccion revelar">
+          <p class="etiqueta">COLECCIÓN AOMORI</p>
+          <h2 id="titulo-coleccion">Algunos shorts que hemos confeccionado</h2>
+          <p>Elegí un modelo para verlo de cerca y consultar por tu talle.</p>
         </div>
 
-        <a class="boton borde-oscuro" data-contacto="equipo">
-          Consultar por mi equipo <span aria-hidden="true">↗</span>
-        </a>
+        <div class="galeria">
+          <article class="producto destacado revelar">
+            <a class="tarjeta" href="img/acertijo.webp" data-producto>
+              <div class="foto-producto">
+                <img
+                  src="img/acertijo.webp"
+                  width="600"
+                  height="600"
+                  loading="lazy"
+                  alt="Short negro con letras doradas y detalles dorados en los laterales"
+                >
+                <span class="abrir" aria-hidden="true">↗</span>
+              </div>
+              <div class="pie-tarjeta">
+                <h3>Negro / Dorado</h3>
+                <span>Ver modelo</span>
+              </div>
+            </a>
+            <p class="descripcion-modelo" hidden>
+              El dorado recorre los laterales y el borde de cada pierna.
+              En el frente, las letras levantan sobre el negro.
+            </p>
+          </article>
+
+          <article class="producto revelar">
+            <a class="tarjeta" href="img/banderas.webp" data-producto>
+              <div class="foto-producto">
+                <img
+                  src="img/banderas.webp"
+                  width="600"
+                  height="600"
+                  loading="lazy"
+                  alt="Short azul con letras claras y banderas de Argentina y Tailandia"
+                >
+                <span class="abrir" aria-hidden="true">↗</span>
+              </div>
+              <div class="pie-tarjeta">
+                <h3>Azul / Banderas</h3>
+                <span>Ver modelo</span>
+              </div>
+            </a>
+            <p class="descripcion-modelo" hidden>
+              Azul intenso con una bandera de cada lado. Argentina y
+              Tailandia enmarcan las letras del frente.
+            </p>
+          </article>
+
+          <article class="producto revelar">
+            <a class="tarjeta" href="img/figther.webp" data-producto>
+              <div class="foto-producto">
+                <img
+                  src="img/figther.webp"
+                  width="600"
+                  height="600"
+                  loading="lazy"
+                  alt="Short negro con letras tornasoladas en el frente"
+                >
+                <span class="abrir" aria-hidden="true">↗</span>
+              </div>
+              <div class="pie-tarjeta">
+                <h3>Negro / Tornasol</h3>
+                <span>Ver modelo</span>
+              </div>
+            </a>
+            <p class="descripcion-modelo" hidden>
+              Una base negra y un frente tornasolado. Las letras toman
+              distintos tonos según cómo les pega la luz.
+            </p>
+          </article>
+        </div>
       </div>
     </section>
 
-    <!-- COLECCIÓN -->
-    <section id="coleccion" class="coleccion contenedor" aria-labelledby="titulo-coleccion">
-      <header class="cabecera-coleccion">
-        <h2 id="titulo-coleccion">Algunos shorts que hemos confeccionado</h2>
-      </header>
+    <!-- 3. HISTORIA DE LA MARCA -->
+    <section id="marca" class="historia seccion contenedor" aria-labelledby="titulo-marca">
+      <figure class="detalle revelar">
+        <div class="recorte-detalle">
+          <img
+            src="img/acertijo.webp"
+            alt="Detalle de las letras y el borde dorado del short negro de AOMORI"
+            width="600"
+            height="600"
+            loading="lazy"
+          >
+        </div>
+        <figcaption>Negro / Dorado · Detalle de confección</figcaption>
+      </figure>
 
-      <div class="grilla">
-        <article class="producto">
-          <a class="abrir-producto" href="ML.png" data-producto>
-            <div class="foto-producto">
-              <img
-                src="ML.png"
-                alt="Short negro con letras doradas y laterales con detalles dorados"
-                width="600"
-                height="600"
-                loading="lazy"
-              >
-              <span class="ampliar" aria-hidden="true">↗</span>
-            </div>
-            <div class="pie-producto">
-              <h3>Azul / Naranja</h3>
-              <span>Ver modelo</span>
-            </div>
-          </a>
-          <p class="descripcion-modelo" hidden>
-            Estilo clasico, Mitad y Mitad. Al mejor estilo de Dragon Ball Z.
-          </p>
-        </article>
+      <div class="texto-editorial revelar">
+        <p class="etiqueta">LA MARCA</p>
+        <h2 id="titulo-marca">Del gimnasio<br>al taller.</h2>
 
-        <article class="producto">
-          <a class="abrir-producto" href="AZUL.png" data-producto>
-            <div class="foto-producto">
-              <img
-                src="AZUL.png"
-                alt="Short azul con letras claras y banderas de Argentina y Tailandia"
-                width="600"
-                height="600"
-                loading="lazy"
-              >
-              <span class="ampliar" aria-hidden="true">↗</span>
-            </div>
-            <div class="pie-producto">
-              <h3>Azul / Banderas</h3>
-              <span>Ver modelo</span>
-            </div>
-          </a>
-          <p class="descripcion-modelo" hidden>
-            Azul intenso, letras claras en el frente y dos banderas que
-            enmarcan el diseño: Argentina y Tailandia.
-          </p>
-        </article>
+        <p>
+          Soy Lucas, peleador de Muay Thai y quien está detrás de AOMORI.
+          Cuando hago un short, pienso en cómo se siente al levantar la
+          rodilla, al patear y al volver a la guardia.
+        </p>
 
-        <article class="producto">
-          <a class="abrir-producto" href="FIGHTER.png" data-producto>
-            <div class="foto-producto">
-              <img
-                src="FIGHTER.png"
-                alt="Short negro con letras tornasoladas en el frente"
-                width="600"
-                height="600"
-                loading="lazy"
-              >
-              <span class="ampliar" aria-hidden="true">↗</span>
-            </div>
-            <div class="pie-producto">
-              <h3>Negro / Dorado</h3>
-              <span>Ver modelo</span>
-            </div>
-          </a>
-          <p class="descripcion-modelo" hidden>
-            Letras doradas sobre una base negra. El dorado vuelve en los
-            laterales y recorre el borde de cada pierna.
-          </p>
-        </article>
+        <p>
+          También pienso en cómo querés verte cuando subís al ring.
+          Por eso elijo los colores, dibujo las letras y trabajo los
+          detalles de cada modelo desde el taller.
+        </p>
       </div>
     </section>
 
-    <!-- CONTACTO INDIVIDUAL -->
-    <section id="contacto" class="contacto contenedor" aria-labelledby="titulo-contacto">
-      <div>
+    <!-- 4. GIMNASIOS Y PROMOTORAS -->
+    <section id="equipos" class="equipos seccion" aria-labelledby="titulo-equipos">
+      <div class="contenedor columnas">
+        <div class="texto-editorial revelar">
+          <p class="etiqueta">GIMNASIOS Y PROMOTORAS</p>
+          <h2 id="titulo-equipos">Los colores de<br>tu esquina.</h2>
+
+          <p>
+            Si tenés un gimnasio o una promotora, consultanos por shorts
+            personalizados. Podemos partir del escudo del equipo, de una
+            combinación de colores o de una idea que ya tengas dibujada.
+          </p>
+
+          <a class="boton principal" data-contacto="equipo">
+            Consultar por mi equipo <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+
+        <div class="pedido-datos revelar">
+          <h3>¿Qué necesitás para consultar?</h3>
+          <dl>
+            <dt>Diseño</dt>
+            <dd>El nombre del equipo, sus colores y el logo o imagen de referencia.</dd>
+
+            <dt>Cantidad y talles</dt>
+            <dd>Cuántos shorts tenés en mente y qué talles usan tus peleadores.</dd>
+
+            <dt>Fecha y destino</dt>
+            <dd>Si son para un evento, contanos cuándo es y en qué localidad los necesitás.</dd>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. GUÍA DE TALLES -->
+    <section id="talles" class="talles seccion contenedor" aria-labelledby="titulo-talles">
+      <div class="encabezado-seccion revelar">
+        <p class="etiqueta">GUÍA DE TALLES</p>
+        <h2 id="titulo-talles">Encontrá tu calce.</h2>
+        <p>
+          Para orientarte, nos sirve saber qué modelo te gustó y cómo te
+          queda un short que ya usás para entrenar.
+        </p>
+      </div>
+
+      <div class="medidas">
+        <article class="medida revelar">
+          <h3>Cintura</h3>
+          <p>
+            Medí alrededor del cuerpo a la altura donde usás el elástico.
+            Mantené la cinta horizontal y sin apretarla.
+          </p>
+        </article>
+
+        <article class="medida revelar">
+          <h3>Cadera</h3>
+          <p>
+            Pasá la cinta por la parte más ancha de la cadera y los glúteos.
+            Anotá el contorno completo en centímetros.
+          </p>
+        </article>
+
+        <article class="medida revelar">
+          <h3>Largo de referencia</h3>
+          <p>
+            Extendé un short que te quede cómodo. Medí por el costado desde
+            el borde superior de la cintura hasta el ruedo.
+          </p>
+        </article>
+      </div>
+
+      <a class="link-texto" data-contacto="talle">
+        Consultar mi talle por WhatsApp ↗
+      </a>
+    </section>
+
+    <!-- 6. PREGUNTAS FRECUENTES -->
+    <section class="preguntas seccion" aria-labelledby="titulo-preguntas">
+      <div class="contenedor columnas">
+        <div class="texto-editorial revelar">
+          <p class="etiqueta">ANTES DE PEDIR</p>
+          <h2 id="titulo-preguntas">Preguntas<br>frecuentes.</h2>
+        </div>
+
+        <div class="acordeon">
+          <details>
+            <summary>¿Cómo sé si un modelo está disponible?</summary>
+            <p>
+              Abrí la foto del short y tocá “Consultar por este modelo”.
+              El mensaje de WhatsApp ya incluye su nombre. Agregá tu talle
+              y te confirmamos la disponibilidad.
+            </p>
+          </details>
+
+          <details>
+            <summary>¿Puedo consultar por un short de la galería que ya se vendió?</summary>
+            <p>
+              Sí. Mandanos el modelo que te gustó y vemos si podemos
+              confeccionarlo por encargo según los materiales disponibles.
+            </p>
+          </details>
+
+          <details>
+            <summary>¿Cómo consulto el costo y el plazo de envío?</summary>
+            <p>
+              Pasanos tu localidad y código postal junto con el modelo.
+              Así podemos revisar las opciones de envío antes de que
+              confirmes el pedido.
+            </p>
+          </details>
+
+          <details>
+            <summary>¿Puedo mandar el logo de mi gimnasio?</summary>
+            <p>
+              Sí. Escribinos desde la sección de equipos y adjuntá tu logo
+              en el chat. Si tenés una referencia de cómo querés ubicarlo
+              en el short, mandala también.
+            </p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. CONTACTO -->
+    <section id="contacto" class="contacto seccion contenedor" aria-labelledby="titulo-contacto">
+      <div class="texto-editorial revelar">
+        <p class="etiqueta">CONTACTO DIRECTO</p>
         <h2 id="titulo-contacto">¿Cuál te llevarías al ring?</h2>
         <p>
-          Escribinos por tu short Personalizado. Normalmente nos tomamos 7 dias habiles en la confeccion (depende de los pedidos o dificultad).
+          Escribinos para consultar por un short o pasá por Instagram
+          para conocer más trabajos de AOMORI.
         </p>
       </div>
 
       <div class="acciones">
-        <a class="boton claro" data-contacto="general">
+        <a class="boton principal" data-contacto="general">
           Escribir por WhatsApp <span aria-hidden="true">↗</span>
         </a>
-        <a class="boton borde" data-contacto="instagram">
+        <a class="boton secundario" data-contacto="instagram">
           Ver Instagram <span aria-hidden="true">↗</span>
         </a>
       </div>
     </section>
   </main>
 
-  <footer class="pie contenedor">
-    <a class="marca" href="#inicio" aria-label="AOMORI, volver al inicio">
-      AOMORI
-    </a>
-    <p>Por y Para Peleadores</p>
+  <footer class="pie">
+    <div class="contenedor pie-interior">
+      <a class="marca" href="#inicio" aria-label="AOMORI, volver al inicio">
+        AOMORI
+      </a>
+      <p>Indumentaria de combate</p>
+      <a href="#inicio">Volver arriba ↑</a>
+    </div>
   </footer>
 
-  <!-- FICHA DE PRODUCTO -->
+  <!-- FICHA AMPLIADA DE CADA SHORT -->
   <dialog id="ficha" aria-labelledby="ficha-nombre">
     <div class="ficha-interior">
       <button
         type="button"
-        class="cerrar"
         id="cerrar-ficha"
+        class="cerrar"
         aria-label="Cerrar ficha"
         autofocus
       >×</button>
 
       <div class="ficha-foto">
-        <img id="ficha-imagen" alt="" width="800" height="800">
+        <img id="ficha-imagen" width="800" height="800" alt="">
       </div>
 
       <div class="ficha-info">
-        <p class="etiqueta">AOMORI / SHORT DE MUAY THAI</p>
+        <p class="etiqueta">AOMORI / MUAY THAI</p>
 
         <div aria-live="polite" aria-atomic="true">
           <h2 id="ficha-nombre"></h2>
           <p id="ficha-descripcion"></p>
         </div>
 
-        <a class="boton claro" id="consultar-modelo">
-          Consultar talle y disponibilidad <span aria-hidden="true">↗</span>
+        <a id="consultar-modelo" class="boton principal">
+          Consultar por este modelo <span aria-hidden="true">↗</span>
         </a>
 
-        <div class="navegacion-ficha" aria-label="Recorrer modelos">
-          <button type="button" id="modelo-anterior">← Anterior</button>
-          <button type="button" id="modelo-siguiente">Siguiente →</button>
+        <div class="ficha-controles">
+          <button id="anterior" type="button">← Anterior</button>
+          <button id="siguiente" type="button">Siguiente →</button>
         </div>
       </div>
     </div>
