@@ -3,8 +3,9 @@ const instagram = "aomori.performance"; // Usuario de AOMORI, con o sin @.
 
 const telefono = whatsapp.replace(/\D/g, "");
 const usuario = instagram.trim().replace(/^@/, "");
+const movimientoReducido = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-function enlaceWhatsApp(mensaje) {
+function urlWhatsApp(mensaje) {
   if (!telefono) return "";
 
   const url = new URL(`https://wa.me/${telefono}`);
@@ -27,16 +28,26 @@ function conectar(enlace, destino) {
   enlace.rel = "noopener noreferrer";
 }
 
-// Contactos principales
+// Cada consulta abre WhatsApp con un mensaje acorde a la sección.
 const destinos = {
-  equipo: enlaceWhatsApp(
-    "¡Hola, AOMORI! Quiero shorts personalizados para mi equipo. " +
-    "¿Podemos hablar del diseño, la cantidad y los tiempos de confección?"
+  general: urlWhatsApp(
+    "¡Hola, AOMORI! Vi sus shorts de Muay Thai. " +
+    "¿Qué modelos y talles tienen disponibles para envío?"
   ),
 
-  general: enlaceWhatsApp(
-    "¡Hola, AOMORI! Vi los short en la web. " +
-    "Quisiera Cotizar un Short Personalizado"
+  equipo: urlWhatsApp(
+    "¡Hola, AOMORI! Quiero consultar por shorts personalizados para mi equipo.\n" +
+    "Nombre del equipo: \n" +
+    "Cantidad aproximada: \n" +
+    "Fecha y localidad: "
+  ),
+
+  talle: urlWhatsApp(
+    "¡Hola, AOMORI! Necesito ayuda para elegir mi talle.\n" +
+    "Modelo que me gustó: \n" +
+    "Contorno de cintura: \n" +
+    "Contorno de cadera: \n" +
+    "Largo de un short que uso: "
   ),
 
   instagram: usuario
@@ -48,15 +59,29 @@ document.querySelectorAll("[data-contacto]").forEach(enlace => {
   conectar(enlace, destinos[enlace.dataset.contacto]);
 });
 
-// La ficha toma los nombres, las fotos y las descripciones del HTML.
-// Para agregar otro modelo, copiá un artículo de la galería y editá sus datos.
+// Las secciones se animan una sola vez al entrar en pantalla.
+if ("IntersectionObserver" in window && !movimientoReducido.matches) {
+  const observador = new IntersectionObserver(entradas => {
+    entradas.forEach(entrada => {
+      if (entrada.isIntersecting) {
+        entrada.target.classList.add("visible");
+        observador.unobserve(entrada.target);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll(".revelar").forEach(elemento => {
+    observador.observe(elemento);
+  });
+}
+
+// Ficha ampliada de producto.
 const tarjetas = Array.from(document.querySelectorAll("[data-producto]"));
 const ficha = document.querySelector("#ficha");
 const foto = document.querySelector("#ficha-imagen");
 const nombre = document.querySelector("#ficha-nombre");
 const descripcion = document.querySelector("#ficha-descripcion");
 const consulta = document.querySelector("#consultar-modelo");
-const movimientoReducido = window.matchMedia("(prefers-reduced-motion: reduce)");
 
 let indiceActual = 0;
 let tarjetaDeOrigen = null;
@@ -78,7 +103,7 @@ function mostrarModelo(indice) {
 
   conectar(
     consulta,
-    enlaceWhatsApp(
+    urlWhatsApp(
       `¡Hola, AOMORI! Me gustó el short ${nombreModelo}. ` +
       "¿Qué talles tenés disponibles? ¿Se puede pedir por encargo?"
     )
@@ -96,13 +121,13 @@ function cambiarModelo(paso) {
         { opacity: 0.45, transform: `translateX(${paso * 8}px)` },
         { opacity: 1, transform: "translateX(0)" }
       ],
-      { duration: 220, easing: "ease-out" }
+      { duration: 200, easing: "ease-out" }
     );
   }
 }
 
 tarjetas.forEach((tarjeta, indice) => {
-  // Si el navegador no admite el diálogo, el enlace abre la foto.
+  // En navegadores sin diálogo nativo, el enlace abre la imagen.
   if (typeof ficha.showModal !== "function") return;
 
   tarjeta.setAttribute("aria-haspopup", "dialog");
@@ -125,16 +150,15 @@ document.querySelector("#cerrar-ficha").addEventListener("click", () => {
   ficha.close();
 });
 
-document.querySelector("#modelo-anterior").addEventListener("click", () => {
+document.querySelector("#anterior").addEventListener("click", () => {
   cambiarModelo(-1);
 });
 
-document.querySelector("#modelo-siguiente").addEventListener("click", () => {
+document.querySelector("#siguiente").addEventListener("click", () => {
   cambiarModelo(1);
 });
 
-// En computadora también podés recorrer modelos con las flechas.
-// El diálogo nativo admite Escape para cerrar.
+// También se puede navegar con las flechas del teclado y cerrar con Escape.
 ficha.addEventListener("keydown", evento => {
   if (evento.key === "ArrowLeft") {
     evento.preventDefault();
@@ -147,16 +171,16 @@ ficha.addEventListener("keydown", evento => {
   }
 });
 
-// Cerrar al tocar fuera de la ficha.
+// Cierra al tocar el fondo exterior.
 ficha.addEventListener("click", evento => {
   if (evento.target !== ficha) return;
 
-  const limites = ficha.getBoundingClientRect();
+  const rect = ficha.getBoundingClientRect();
   const fuera =
-    evento.clientX < limites.left ||
-    evento.clientX > limites.right ||
-    evento.clientY < limites.top ||
-    evento.clientY > limites.bottom;
+    evento.clientX < rect.left ||
+    evento.clientX > rect.right ||
+    evento.clientY < rect.top ||
+    evento.clientY > rect.bottom;
 
   if (fuera) ficha.close();
 });
