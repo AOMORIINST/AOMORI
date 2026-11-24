@@ -1,191 +1,208 @@
-const whatsapp = "5493444580780";  // Argentina: 549 + código de área + número.
-const instagram = "aomori.performance"; // Usuario de AOMORI, con o sin @.
-
-const telefono = whatsapp.replace(/\D/g, "");
-const usuario = instagram.trim().replace(/^@/, "");
-const movimientoReducido = window.matchMedia("(prefers-reduced-motion: reduce)");
-
-function urlWhatsApp(mensaje) {
-  if (!telefono) return "";
-
-  const url = new URL(`https://wa.me/${telefono}`);
-  url.searchParams.set("text", mensaje);
-  return url.href;
-}
-
-function conectar(enlace, destino) {
-  if (!destino) {
-    enlace.removeAttribute("href");
-    enlace.setAttribute("aria-disabled", "true");
-    enlace.title = "Contacto pendiente de configurar";
-    return;
-  }
-
-  enlace.removeAttribute("aria-disabled");
-  enlace.removeAttribute("title");
-  enlace.href = destino;
-  enlace.target = "_blank";
-  enlace.rel = "noopener noreferrer";
-}
-
-// Cada consulta abre WhatsApp con un mensaje acorde a la sección.
-const destinos = {
-  general: urlWhatsApp(
-    "¡Hola, AOMORI! Vi sus shorts de Muay Thai. " +
-    "¿Qué modelos y talles tienen disponibles para envío?"
-  ),
-
-  equipo: urlWhatsApp(
-    "¡Hola, AOMORI! Quiero consultar por shorts personalizados para mi equipo.\n" +
-    "Nombre del equipo: \n" +
-    "Cantidad aproximada: \n" +
-    "Fecha y localidad: "
-  ),
-
-  talle: urlWhatsApp(
-    "¡Hola, AOMORI! Necesito ayuda para elegir mi talle.\n" +
-    "Modelo que me gustó: \n" +
-    "Contorno de cintura: \n" +
-    "Contorno de cadera: \n" +
-    "Largo de un short que uso: "
-  ),
-
-  instagram: usuario
-    ? `https://www.instagram.com/${encodeURIComponent(usuario)}/`
-    : ""
+// ENLACES DE AOMORI
+const contacts = {
+  Instagram: "", // Formato: https://www.instagram.com/TU_USUARIO/
+  WhatsApp: ""   // Formato: https://wa.me/NUMERO_CON_CODIGO_DE_PAIS
 };
 
-document.querySelectorAll("[data-contacto]").forEach(enlace => {
-  conectar(enlace, destinos[enlace.dataset.contacto]);
+// GUÍA DE TALLES
+const sizes = [
+  ["XS", "34–42 kg"],
+  ["S", "42–49 kg"],
+  ["M", "49–57 kg"],
+  ["L", "57–65 kg"],
+  ["XL", "65–72 kg"],
+  ["2XL", "72–80 kg"],
+  ["3XL", "Desde 80 kg"]
+];
+
+// SHORTS DE LA COLECCIÓN
+const models = [
+  {
+    image: "azul",
+    name: "Neme Team",
+    color: "Azul, celeste y blanco",
+    description:
+      "El azul intenso enmarca las letras doradas del frente. " +
+      "En los laterales, las banderas de Argentina y Tailandia completan el diseño."
+  },
+  {
+    image: "ml",
+    name: "Saiyajin",
+    color: "Azul y dorado",
+    description:
+      "Dos mitades de color se encuentran bajo la palabra Saiyajin. " +
+      "El emblema sobre la pierna dorada completa el diseño inspirado en Dragon Ball."
+  },
+  {
+    image: "negro",
+    name: "Neme Team Noir",
+    color: "Negro con letras verdes",
+    description:
+      "El brillo del negro le da protagonismo al color de las letras. " +
+      "Una combinación oscura con el detalle de Aomori en la cintura."
+  }
+];
+
+// MENÚ MÓVIL
+const navigation = document.querySelector("#nav");
+const menuButton = document.querySelector(".menubtn");
+
+function setMenu(open) {
+  navigation.classList.toggle("open", open);
+  menuButton.setAttribute("aria-expanded", String(open));
+  menuButton.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
+}
+
+menuButton.addEventListener("click", () => {
+  setMenu(!navigation.classList.contains("open"));
 });
 
-// Las secciones se animan una sola vez al entrar en pantalla.
-if ("IntersectionObserver" in window && !movimientoReducido.matches) {
-  const observador = new IntersectionObserver(entradas => {
-    entradas.forEach(entrada => {
-      if (entrada.isIntersecting) {
-        entrada.target.classList.add("visible");
-        observador.unobserve(entrada.target);
-      }
+navigation.addEventListener("click", () => setMenu(false));
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && navigation.classList.contains("open")) {
+    setMenu(false);
+    menuButton.focus();
+  }
+});
+
+// VENTANA DE DETALLES
+const dialog = document.querySelector("#detail");
+const detailBody = document.querySelector("#detailbody");
+
+function showDetails(title, description, imagePath = "") {
+  detailBody.replaceChildren();
+
+  if (imagePath) {
+    const image = document.createElement("img");
+    image.className = "detailpic";
+    image.src = imagePath;
+    image.alt = `Short ${title}`;
+    detailBody.append(image);
+  }
+
+  const text = document.createElement("div");
+  text.className = "detailtext";
+
+  const heading = document.createElement("h3");
+  heading.id = "detail-title";
+  heading.textContent = title;
+
+  const paragraph = document.createElement("p");
+  paragraph.textContent = description;
+
+  text.append(heading, paragraph);
+  detailBody.append(text);
+  dialog.setAttribute("aria-labelledby", heading.id);
+
+  if (!dialog.open) dialog.showModal();
+}
+
+document.querySelector(".close").addEventListener("click", () => {
+  dialog.close();
+});
+
+// Cierra la ficha cuando se hace clic en el fondo.
+dialog.addEventListener("click", (event) => {
+  if (event.target !== dialog) return;
+
+  const rect = dialog.getBoundingClientRect();
+  const outside =
+    event.clientX < rect.left || event.clientX > rect.right ||
+    event.clientY < rect.top || event.clientY > rect.bottom;
+
+  if (outside) dialog.close();
+});
+
+// BOTONES DE INSTAGRAM Y WHATSAPP
+function addContact(name, container, compact) {
+  const url = contacts[name];
+  const item = document.createElement(url ? "a" : "button");
+
+  if (url) {
+    item.href = url;
+    item.target = "_blank";
+    item.rel = "noopener noreferrer";
+  } else {
+    item.type = "button";
+    item.addEventListener("click", () => {
+      showDetails(
+        name,
+        `El contacto de Aomori por ${name} estará disponible próximamente.`
+      );
     });
-  }, { threshold: 0.08 });
+  }
 
-  document.querySelectorAll(".revelar").forEach(elemento => {
-    observador.observe(elemento);
+  item.setAttribute("aria-label", `${name} de Aomori`);
+  if (!compact) item.className = "btn channel";
+
+  const iconId = name.toLowerCase();
+  item.innerHTML = `<svg aria-hidden="true"><use href="#${iconId}"></use></svg>`;
+
+  if (!compact) item.append(document.createTextNode(name));
+  container.append(item);
+}
+
+for (const name of Object.keys(contacts)) {
+  addContact(name, document.querySelector(".social"), true);
+  addContact(name, document.querySelector(".channels"), false);
+}
+
+// TABLA DE TALLES
+const sizeTable = document.querySelector("#sizes");
+
+for (const [size, weight] of sizes) {
+  const row = sizeTable.insertRow();
+  const heading = document.createElement("th");
+  heading.scope = "row";
+  heading.textContent = size;
+  row.append(heading);
+
+  const cell = row.insertCell();
+  cell.textContent = weight;
+}
+
+// TARJETAS DE LA COLECCIÓN
+const cards = document.querySelector("#cards");
+
+for (const model of models) {
+  const button = document.createElement("button");
+  button.className = "product";
+  button.type = "button";
+  button.setAttribute("aria-label", `Ver ${model.name}`);
+
+  const tile = document.createElement("span");
+  tile.className = "tile";
+
+  const photo = document.createElement("img");
+  const imagePath = `assets/${model.image}.webp`;
+  photo.src = imagePath;
+  photo.alt = `Short de Muay Thai ${model.color.toLowerCase()}`;
+  photo.loading = "lazy";
+  tile.append(photo);
+
+  const info = document.createElement("span");
+  info.className = "prodinfo";
+
+  const label = document.createElement("span");
+  const name = document.createElement("strong");
+  name.textContent = model.name;
+
+  const color = document.createElement("small");
+  color.textContent = model.color;
+  label.append(name, color);
+
+  const plus = document.createElement("span");
+  plus.className = "plus";
+  plus.setAttribute("aria-hidden", "true");
+  plus.textContent = "+";
+
+  info.append(label, plus);
+  button.append(tile, info);
+
+  button.addEventListener("click", () => {
+    showDetails(model.name, model.description, imagePath);
   });
+
+  cards.append(button);
 }
-
-// Ficha ampliada de producto.
-const tarjetas = Array.from(document.querySelectorAll("[data-producto]"));
-const ficha = document.querySelector("#ficha");
-const foto = document.querySelector("#ficha-imagen");
-const nombre = document.querySelector("#ficha-nombre");
-const descripcion = document.querySelector("#ficha-descripcion");
-const consulta = document.querySelector("#consultar-modelo");
-
-let indiceActual = 0;
-let tarjetaDeOrigen = null;
-
-function mostrarModelo(indice) {
-  indiceActual = (indice + tarjetas.length) % tarjetas.length;
-
-  const tarjeta = tarjetas[indiceActual];
-  const articulo = tarjeta.closest("article");
-  const miniatura = tarjeta.querySelector("img");
-  const nombreModelo = tarjeta.querySelector("h3").textContent.trim();
-
-  foto.src = tarjeta.href;
-  foto.alt = miniatura.alt;
-  nombre.textContent = nombreModelo;
-  descripcion.textContent = articulo
-    .querySelector(".descripcion-modelo")
-    .textContent.trim();
-
-  conectar(
-    consulta,
-    urlWhatsApp(
-      `¡Hola, AOMORI! Me gustó el short ${nombreModelo}. ` +
-      "¿Qué talles tenés disponibles? ¿Se puede pedir por encargo?"
-    )
-  );
-}
-
-function cambiarModelo(paso) {
-  mostrarModelo(indiceActual + paso);
-
-  if (!movimientoReducido.matches && typeof foto.animate === "function") {
-    foto.getAnimations().forEach(animacion => animacion.cancel());
-
-    foto.animate(
-      [
-        { opacity: 0.45, transform: `translateX(${paso * 8}px)` },
-        { opacity: 1, transform: "translateX(0)" }
-      ],
-      { duration: 200, easing: "ease-out" }
-    );
-  }
-}
-
-tarjetas.forEach((tarjeta, indice) => {
-  // En navegadores sin diálogo nativo, el enlace abre la imagen.
-  if (typeof ficha.showModal !== "function") return;
-
-  tarjeta.setAttribute("aria-haspopup", "dialog");
-  tarjeta.setAttribute("aria-controls", "ficha");
-
-  tarjeta.addEventListener("click", evento => {
-    if (evento.ctrlKey || evento.metaKey || evento.shiftKey || evento.altKey) {
-      return;
-    }
-
-    evento.preventDefault();
-    tarjetaDeOrigen = tarjeta;
-    mostrarModelo(indice);
-    ficha.showModal();
-    document.body.classList.add("ficha-abierta");
-  });
-});
-
-document.querySelector("#cerrar-ficha").addEventListener("click", () => {
-  ficha.close();
-});
-
-document.querySelector("#anterior").addEventListener("click", () => {
-  cambiarModelo(-1);
-});
-
-document.querySelector("#siguiente").addEventListener("click", () => {
-  cambiarModelo(1);
-});
-
-// También se puede navegar con las flechas del teclado y cerrar con Escape.
-ficha.addEventListener("keydown", evento => {
-  if (evento.key === "ArrowLeft") {
-    evento.preventDefault();
-    cambiarModelo(-1);
-  }
-
-  if (evento.key === "ArrowRight") {
-    evento.preventDefault();
-    cambiarModelo(1);
-  }
-});
-
-// Cierra al tocar el fondo exterior.
-ficha.addEventListener("click", evento => {
-  if (evento.target !== ficha) return;
-
-  const rect = ficha.getBoundingClientRect();
-  const fuera =
-    evento.clientX < rect.left ||
-    evento.clientX > rect.right ||
-    evento.clientY < rect.top ||
-    evento.clientY > rect.bottom;
-
-  if (fuera) ficha.close();
-});
-
-ficha.addEventListener("close", () => {
-  document.body.classList.remove("ficha-abierta");
-  tarjetaDeOrigen?.focus({ preventScroll: true });
-});
