@@ -1,7 +1,7 @@
 // ENLACES DE AOMORI
 const contacts = {
-  Instagram: "", // Formato: https://www.instagram.com/TU_USUARIO/
-  WhatsApp: ""   // Formato: https://wa.me/NUMERO_CON_CODIGO_DE_PAIS
+  Instagram: "https://www.instagram.com/aomori.performance/", // Formato: https://www.instagram.com/TU_USUARIO/
+  WhatsApp: "3444580780"   // Formato: https://wa.me/NUMERO_CON_CODIGO_DE_PAIS
 };
 
 // GUÍA DE TALLES
