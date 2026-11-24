@@ -6,13 +6,13 @@ const contacts = {
 
 // GUÍA DE TALLES
 const sizes = [
-  ["XS", "34–42 kg"],
-  ["S", "42–49 kg"],
-  ["M", "49–57 kg"],
-  ["L", "57–65 kg"],
-  ["XL", "65–72 kg"],
-  ["2XL", "72–80 kg"],
-  ["3XL", "Desde 80 kg"]
+  ["XS", "- 45 kg"],
+  ["S", "45-55 kg"],
+  ["M", "55-65 kg"],
+  ["L", "65-75 kg"],
+  ["XL", "75-85 kg"],
+  ["2XL", "85-95 kg"],
+  ["3XL", "+ 95 kg"]
 ];
 
 // SHORTS DE LA COLECCIÓN
