@@ -18,24 +18,24 @@ const sizes = [
 // SHORTS DE LA COLECCIÓN
 const models = [
   {
-    image: "azul",
-    name: "Neme Team",
+    image: "AZUL.png",
+    name: "Azul y Banderas",
     color: "Azul, celeste y blanco",
     description:
       "El azul intenso enmarca las letras doradas del frente. " +
       "En los laterales, las banderas de Argentina y Tailandia completan el diseño."
   },
   {
-    image: "ml",
+    image: "ML.png",
     name: "Saiyajin",
-    color: "Azul y dorado",
+    color: "Azul y Naranja",
     description:
       "Dos mitades de color se encuentran bajo la palabra Saiyajin. " +
       "El emblema sobre la pierna dorada completa el diseño inspirado en Dragon Ball."
   },
   {
-    image: "negro",
-    name: "Neme Team Noir",
+    image: "NEGRO.png",
+    name: "Verde Noir",
     color: "Negro con letras verdes",
     description:
       "El brillo del negro le da protagonismo al color de las letras. " +
